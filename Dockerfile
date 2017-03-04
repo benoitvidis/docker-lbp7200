@@ -15,10 +15,6 @@ RUN  apt-get update \
       gdebi-core \
   && apt-get autoremove -y 
 
-RUN  service cups start \
-  && sleep 5 \
-  && /usr/sbin/lpadmin -p CANON-LBP7200 -P /usr/share/cups/model/CNCUPSLBP7200CCAPTK.ppd -v ccp://localhost:59787 -E
-
 COPY etc/cups/cupsd.conf /etc/cups/
 COPY etc/ccpd.conf /etc/
 COPY docker-entrypoint.sh /
