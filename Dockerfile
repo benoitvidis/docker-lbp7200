@@ -15,3 +15,8 @@ RUN  apt-get update \
       gdebi-core \
   && apt-get autoremove -y 
 
+COPY etc/cups/cupsd.conf /etc/cups/
+COPY docker-entrypoint.sh /
+
+CMD ["/docker-entrypoint.sh"]
+
