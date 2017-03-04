@@ -10,7 +10,7 @@ RUN  apt-get update \
   && tar xvf Linux_CAPT_PrinterDriver_V270_uk_EN.tar.gz \
   && gdebi -n Linux_CAPT_PrinterDriver_V270_uk_EN/64-bit_Driver/Debian/cndrvcups-common_3.20-1_amd64.deb \
   && gdebi -n Linux_CAPT_PrinterDriver_V270_uk_EN/64-bit_Driver/Debian/cndrvcups-capt_2.70-1_amd64.deb \
-  && apt-get remove --purge \
+  && apt-get remove --purge -y \
       curl \
       gdebi-core \
   && apt-get autoremove -y 
