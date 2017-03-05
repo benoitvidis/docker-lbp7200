@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM debian:jessie
 MAINTAINER Benoît Vidis <contact@benoitvidis.com>
 
 RUN  apt-get update \
