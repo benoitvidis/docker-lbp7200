@@ -1,19 +1,48 @@
-FROM ubuntu:trusty
+FROM fedora:21
 MAINTAINER Benoît Vidis <contact@benoitvidis.com>
 
-RUN  apt-get update \
-  && apt-get install -y \
+RUN  yum install -y \
+      atk \
+      cups \
+      cups-libs \
       curl \
-      gdebi-core \
+      glibc \
+      glibc-2.20-8.fc21.i686 \
+      gtk2 \
+      gtk2-2.24.28-1.fc21.i686 \
+      libglade2 \
+      libglade2-2.6.4-12.fc21.i686 \
+      libstdc++ \
+      libstdc++-4.9.2-6.fc21.i686 \
+      pango \
+      pango-1.36.8-6.fc21.i686 \
+      pangox-compat \
+      popt-1.16-5.fc21.i686 \
+      tar \
+     || true \
+  && yum clean all \
   && cd /root \
   && curl -SLO http://gdlp01.c-wss.com/gds/6/0100004596/04/Linux_CAPT_PrinterDriver_V270_uk_EN.tar.gz \
   && tar xvf Linux_CAPT_PrinterDriver_V270_uk_EN.tar.gz \
-  && gdebi -n Linux_CAPT_PrinterDriver_V270_uk_EN/64-bit_Driver/Debian/cndrvcups-common_3.20-1_amd64.deb \
-  && gdebi -n Linux_CAPT_PrinterDriver_V270_uk_EN/64-bit_Driver/Debian/cndrvcups-capt_2.70-1_amd64.deb \
-  && apt-get remove --purge -y \
-      curl \
-      gdebi-core \
-  && apt-get autoremove -y 
+  && rpm --rebuilddb \
+  && rpm -ivh Linux_CAPT_PrinterDriver_V270_uk_EN/64-bit_Driver/RPM/cndrvcups-common-3.20-1.x86_64.rpm \
+  && rpm -ivh Linux_CAPT_PrinterDriver_V270_uk_EN/64-bit_Driver/RPM/cndrvcups-capt-2.70-1.x86_64.rpm \
+  && mkdir -p /var/log/CCPD \
+  && echo done
+
+#RUN  apt-get update \
+#  && apt-get install -y \
+#      curl \
+#      gdebi-core \
+#  && cd /root \
+#  && curl -SLO http://gdlp01.c-wss.com/gds/6/0100004596/04/Linux_CAPT_PrinterDriver_V270_uk_EN.tar.gz \
+#  && tar xvf Linux_CAPT_PrinterDriver_V270_uk_EN.tar.gz \
+#  && gdebi -n Linux_CAPT_PrinterDriver_V270_uk_EN/64-bit_Driver/Debian/cndrvcups-common_3.20-1_amd64.deb \
+#  && gdebi -n Linux_CAPT_PrinterDriver_V270_uk_EN/64-bit_Driver/Debian/cndrvcups-capt_2.70-1_amd64.deb \
+#  && apt-get remove --purge -y \
+#      curl \
+#      gdebi-core \
+#  && apt-get autoremove -y 
 
 COPY etc/cups/cupsd.conf /etc/cups/
 COPY etc/ccpd.conf /etc/
