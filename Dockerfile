@@ -1,7 +1,8 @@
-FROM ubuntu:trusty
+FROM ubuntu:utopic
 MAINTAINER Benoît Vidis <contact@benoitvidis.com>
 
-RUN  apt-get update \
+RUN  sed -ri 's|archive\.ubuntu\.com|old-releases.ubuntu.com|g' /etc/apt/sources.list \
+  && apt-get update \
   && apt-get install -y \
       curl \
       gdebi-core \
