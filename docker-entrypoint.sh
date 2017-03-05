@@ -8,4 +8,7 @@ sleep 3
 sleep 2
 /etc/init.d/ccpd restart
 
+sleep 3
+/root/bin/gcp-cups-connector
+
 exec watch "/etc/init.d/ccpd status"

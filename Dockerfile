@@ -3,11 +3,17 @@ MAINTAINER Benoît Vidis <contact@benoitvidis.com>
 
 RUN  yum install -y \
       atk \
+      avahi-devel \
+      bzr \
       cups \
+      cups-devel \
       cups-libs \
       curl \
+      gcc \
+      git \
       glibc \
       glibc-2.20-8.fc21.i686 \
+      go \
       gtk2 \
       gtk2-2.24.28-1.fc21.i686 \
       libglade2 \
@@ -28,6 +34,8 @@ RUN  yum install -y \
   && rpm -ivh Linux_CAPT_PrinterDriver_V270_uk_EN/64-bit_Driver/RPM/cndrvcups-common-3.20-1.x86_64.rpm \
   && rpm -ivh Linux_CAPT_PrinterDriver_V270_uk_EN/64-bit_Driver/RPM/cndrvcups-capt-2.70-1.x86_64.rpm \
   && mkdir -p /var/log/CCPD \
+  && export GOPATH=/root \
+  && go get github.com/google/cloud-print-connector/... \
   && echo done
 
 COPY etc/cups/cupsd.conf /etc/cups/
